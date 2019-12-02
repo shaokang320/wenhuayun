@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//微信路由，无需登录
+Route::group(['prefix' => 'weixin', 'namespace' => 'Weixin', 'middleware' => ['api']], function () {
+
+    //页面跳转
+    Route::any('/index', 'IndexController@index');
+
 });

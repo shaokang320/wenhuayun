@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <form id="addarc" method="post" action="{{route('enterprise_culture_add')}}" role="form" enctype="multipart/form-data" class="form-horizontal">
+                    <form id="addarc" method="post" action="{{route('enterprise_culture_doadd')}}" role="form" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group"><label class="col-sm-2 control-label required">标题</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control required" name="title">
