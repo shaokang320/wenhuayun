@@ -52,12 +52,12 @@
                                             {{$vo->title}}
                                         </td>
                                         <td>
-                                            <img alt="image" class="img-circle" src="{{$post['member_avatar']}}" style="width: 62px">
-                                            {{$vo->image}}
+                                            <img alt="image" class="img-circle" src="{{$vo->image}}" style="width: 62px">
+
                                         </td>
                                         <td>
-                                            <img alt="image" class="img-circle" src="{{$post['member_avatar']}}" style="width: 62px">
-                                            {{$vo->qrCode}}
+                                            <img alt="image" class="img-circle" src="{{$vo->qrCode}}" style="width: 62px">
+
                                         </td>
                                         <td>
                                             @if($vo->status == 0) 正常 @elseif($vo->status == 1) 禁用 @endif
