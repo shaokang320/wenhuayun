@@ -36,7 +36,7 @@
                                 <th data-hide="phone">标题</th>
                                 <th data-hide="phone">缩略图</th>
                                 <th data-hide="phone">二维码连接</th>
-                                <th data-hide="phone">帐号状态</th>
+                                <th data-hide="phone">状态</th>
                                 <th data-hide="phone">添加时间</th>
                                 <th class="text-right" data-sort-ignore="true">操作</th>
                             </tr>
@@ -52,9 +52,11 @@
                                             {{$vo->title}}
                                         </td>
                                         <td>
+                                            <img alt="image" class="img-circle" src="{{$post['member_avatar']}}" style="width: 62px">
                                             {{$vo->image}}
                                         </td>
                                         <td>
+                                            <img alt="image" class="img-circle" src="{{$post['member_avatar']}}" style="width: 62px">
                                             {{$vo->qrCode}}
                                         </td>
                                         <td>
