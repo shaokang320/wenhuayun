@@ -55,7 +55,7 @@ class EnterpriseController extends CommonController
         $res = $this->getEnterpriseLogic()->add($_POST);
         if($res['code'] == 0)
         {
-            $contents = '/' ."uploads/enterprise/qrcode/" . date("Y").'/'.date('m').'/'.date('Ymd');
+            $contents = "/uploads/enterprise/qrcode/" . date("Y").'/'.date('m').'/'.date('Ymd');
             $path = public_path() . $contents;
             $qrcode = '/'.date('YmdHis').'.png';
             if (!is_dir($path))
