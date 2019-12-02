@@ -46,18 +46,20 @@ class CultureController extends CommonController
 
     public function doadd(Request $request)
     {
-        $tmp = $request->file('img');
-        $arr = uploadImage($tmp,'enterprise/wenhua','wenhua');
-        $_POST['image'] = $arr['path'];
-        $_POST['enterprise_id'] = $this->enterprise_info['id'];
-
-        $video = explode("_", $request->video);
-        $_POST['video_path'] = '/aetherupload/'.$video[0].'/'.$video[1].'/'.$video[2];
-        $res = $this->getCultureLogic()->add($_POST);
-        if ($res['code'] == 0)
+//        $tmp = $request->file('img');
+//        $arr = uploadImage($tmp,'enterprise/wenhua','wenhua');
+//        $_POST['image'] = $arr['path'];
+//        $_POST['enterprise_id'] = $this->enterprise_info['id'];
+//
+//        $video = explode("_", $request->video);
+//        $_POST['video_path'] = '/aetherupload/'.$video[0].'/'.$video[1].'/'.$video[2];
+//        $res = $this->getCultureLogic()->add($_POST);
+        $res = 1;
+        if ($res)
         {
             $contents = "/uploads/enterprise/wenhua/qrcode/" . date("Y").'/'.date('m').'/'.date('Ymd');
             $path = public_path() . $contents;
+            var_dump($path);die;
             $qrcode = '/'.date('YmdHis').'.png';
             if (!is_dir($path))
             {
