@@ -12,7 +12,6 @@ class IndexController extends CommonController
         if (isset($request->wenhua_id))
         {
             $data = model('Culture')->where('id',$request->wenhua_id)->first();
-            var_dump($data);die;
         }elseif(isset($request->id))
         {
             $data = model('Enterprise')->where('id',$request->id)->first();
