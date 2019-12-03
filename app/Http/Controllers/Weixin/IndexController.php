@@ -11,8 +11,11 @@ class IndexController extends CommonController
     {
         if (isset($request->wenhua_id))
         {
-            $res = model('Culture')->where('id',$request->wenhua_id)->first();
-            $res->enterprise = model('Enterprise')->where('id',$res->enterprise_id)->select(\DB::raw('mobile,longitude,latitude'))->first();
+            $res = model('Culture')
+                ->join('enterprise','enterprise.id','=','culture.enterprise_id')
+                ->where('culture.id',$request->wenhua_id)
+                ->select('culture.*','enterprise.mobile,enterprise.longitude,enterprise.latitude')
+                ->first();
         }elseif(isset($request->id))
         {
             $res = model('Enterprise')->where('id',$request->id)->first();
