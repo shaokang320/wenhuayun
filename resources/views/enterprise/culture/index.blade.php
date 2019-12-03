@@ -66,7 +66,7 @@
                                             {{$vo->createTime}}
                                         </td>
                                         <td class="text-right">
-                                            <a class="btn btn-primary btn-xs" href="{{route('admin_enterprise_edit')}}?id={{$vo->id}}">修改</a>
+                                            <a class="btn btn-primary btn-xs" href="{{route('enterprise_culture_edit')}}?id={{$vo->id}}">修改</a>
                                             @if($vo->status == 0)
                                                 <a class="label label-danger" onclick="editStatus('{{route('admin_enterprise_editStatus')}}','{{$vo->id}}',1)" href="javascript:;">帐号禁用</a>
                                             @else
@@ -81,7 +81,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan='8'>暂无企业信息</td>
+                                    <td colspan='8'>暂无企业文化信息</td>
                                 </tr>
                             @endif
                             </tbody>
