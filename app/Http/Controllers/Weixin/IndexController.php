@@ -9,6 +9,7 @@ class IndexController extends CommonController
 
     public function index(Request $request)
     {
+        var_dump(isset($request->wenhua_id));die;
         if (isset($request->wenhua_id))
         {
             $data = model('Culture')->where('id',$request->wenhua_id)->first();
