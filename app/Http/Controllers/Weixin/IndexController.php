@@ -9,15 +9,14 @@ class IndexController extends CommonController
 
     public function index(Request $request)
     {
-        var_dump(isset($request->wenhua_id));die;
         if (isset($request->wenhua_id))
         {
-            $data = model('Culture')->where('id',$request->wenhua_id)->first();
+            $res = model('Culture')->where('id',$request->wenhua_id)->first();
         }elseif(isset($request->id))
         {
-            $data = model('Enterprise')->where('id',$request->id)->first();
+            $res = model('Enterprise')->where('id',$request->id)->first();
         }
-        $data['info'] = $data;
+        $data['info'] = $res;
         $this->ApiJson('200',$data,'请求成功');
     }
 
