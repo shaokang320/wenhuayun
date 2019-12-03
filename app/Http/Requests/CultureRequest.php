@@ -36,7 +36,7 @@ class CultureRequest extends BaseRequest
     protected $scene = [
         'add' => ['title', 'enterprise_id', 'image', 'video_path', 'qrCode', 'status', 'createTime'],
         'edit' => ['title', 'image', 'video_path', 'status','updateTime'],
-        'del' => ['id','enterprise_id'],
+        'del' => ['id'],
     ];
 
     /**

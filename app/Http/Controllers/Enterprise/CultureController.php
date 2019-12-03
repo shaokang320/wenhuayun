@@ -1,5 +1,6 @@
 <?php
 namespace app\Http\Controllers\Enterprise;
+use App\Common\ReturnData;
 use App\Http\Controllers\Enterprise\CommonController;
 use App\Http\Logic\CultureLogic;
 use DB;
@@ -122,27 +123,26 @@ class CultureController extends CommonController
 
     public function del(Request $request)
     {
-        $tmp = $request->file('img');
-        $arr = uploadImage($tmp,'enterprise/wenhua','wenhua');
-        $_POST['image'] = $arr['path'];
-        $_POST['enterprise_id'] = $this->enterprise_info['id'];
-
-        $video = explode("_", $request->video);
-        $_POST['video_path'] = '/aetherupload/'.$video[0].'/'.$video[1].'/'.$video[2];
-        $res = $this->getCultureLogic()->add($_POST);
+        $res = $this->getCultureLogic()->del(['id'=>$request->id]);
         if ($res['code'] == 0)
         {
-            $contents = "/uploads/enterprise/wenhua/qrcode/" . date("Y").'/'.date('m').'/'.date('Ymd');
-            $path = public_path() . $contents;
-            $qrcode = '/'.date('YmdHis').'.png';
-            if (!is_dir($path))
-            {
-                mkdir($path,0777,true);
-            }
-            QrCode::size(200)->generate('https://wenhua.newheightchina.com?wenhua_id='.$res['data'],$path.$qrcode);
-            $data['qrCode'] = $contents.$qrcode;
-            model('Culture')->where('id',$res['data'])->update($data);
-            success_jump('添加成功', route('enterprise_culture'),'2');
+            success_jump('删除成功', route('enterprise_culture'),'2');
+        }
+        error_jump($res['msg']);
+    }
+
+    public function editStatus()
+    {
+        $id = $_POST["id"];
+        unset($_POST["_token"]);
+        unset($_POST["id"]);
+        $_POST['updateTime'] = date('Y-m-d H:i:s'); //添加&更新时间
+        if (model('Culture')->where('id',$id)->update($_POST))
+        {
+            return ReturnData::create(ReturnData::SUCCESS);
+        } else
+        {
+            return ReturnData::create(ReturnData::SYSTEM_FAIL);
         }
     }
 }

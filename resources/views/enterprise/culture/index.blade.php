@@ -70,13 +70,12 @@
                                         <td class="text-right">
                                             <a class="btn btn-primary btn-xs" href="{{route('enterprise_culture_edit')}}?id={{$vo->id}}">修改</a>
                                             @if($vo->status == 0)
-                                                <a class="label label-danger" onclick="editStatus('{{route('admin_enterprise_editStatus')}}','{{$vo->id}}',1)" href="javascript:;">帐号禁用</a>
+                                                <a class="label label-danger" onclick="editStatus('{{route('enterprise_culture_editStatus')}}','{{$vo->id}}',1)" href="javascript:;">禁用</a>
                                             @else
-                                                <a class="btn btn-primary btn-xs" onclick="editStatus('{{route('admin_enterprise_editStatus')}}','{{$vo->id}}','0')" href="javascript:;">帐号恢复</a>
+                                                <a class="btn btn-primary btn-xs" onclick="editStatus('{{route('enterprise_culture_editStatus')}}','{{$vo->id}}','0')" href="javascript:;">恢复</a>
                                             @endif
                                             <div class="btn-group">
-                                                <a class="label label-danger" onclick="reset('{{route('admin_enterprise_editStatus')}}','{{$vo->id}}','123456')" href="javascript:;">重置密码</a>
-                                                <a class="label label-danger" onclick="delconfirm('{{route('admin_enterprise_del')}}?id={{$vo->id}}')" href="javascript:;">删除</a>
+                                                <a class="label label-danger" onclick="delconfirm('{{route('enterprise_culture_del')}}?id={{$vo->id}}')" href="javascript:;">删除</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -142,28 +141,7 @@
                 }, 'json');
             }
         }
-        function reset(url,id,password)
-        {
-            if(confirm("确定更改吗"))
-            {
-                $.post(url, {
-                    id: id,
-                    password: password,
-                    _token :'{{csrf_token()}}'
-                }, function (res) {
-                    if (res.code == 0) {
-                        layer.msg('操作成功!新密码为:123456');
-                        setTimeout(function(){
-                            window.location.reload();
-                        },3000);
-                    }
-                    else {
-                        layer.msg('操作失败');
-                        return false;
-                    }
-                }, 'json');
-            }
-        }
+
         //删除确认框
         function delconfirm(url)
         {

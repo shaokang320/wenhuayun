@@ -47,6 +47,8 @@ Route::group(['prefix' => 'enterprise', 'namespace' => 'Enterprise', 'middleware
     Route::post('/culture/doadd', 'CultureController@doadd')->name('enterprise_culture_doadd');
     Route::get('/culture/edit', 'CultureController@edit')->name('enterprise_culture_edit');
     Route::post('/culture/doedit', 'CultureController@doedit')->name('enterprise_culture_doedit');
+    Route::get('/culture/del', 'CultureController@del')->name('enterprise_culture_del');
+    Route::post('/culture/editStatus', 'CultureController@editStatus')->name('enterprise_culture_editStatus');
 
     //登录注销
     Route::get('/login', 'LoginController@login')->name('enterprise_login');
