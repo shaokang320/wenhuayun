@@ -14,7 +14,7 @@ class IndexController extends CommonController
             $res = model('Culture')
                 ->join('enterprise','enterprise.id','=','culture.enterprise_id')
                 ->where('culture.id',$request->wenhua_id)
-                ->select('culture.*','enterprise.mobile,enterprise.longitude,enterprise.latitude')
+                ->select('culture.*','enterprise.mobile','enterprise.longitude','enterprise.latitude')
                 ->first();
         }elseif(isset($request->id))
         {
