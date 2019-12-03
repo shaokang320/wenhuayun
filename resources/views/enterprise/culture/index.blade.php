@@ -52,12 +52,14 @@
                                             {{$vo->title}}
                                         </td>
                                         <td>
-                                            <img alt="image" class="img-circle" src="{{$vo->image}}" style="width: 62px">
-
+                                            <a href="{{env('APP_URL')}}/{{$vo->image}}" target="view_window">
+                                                <img alt="image" src="{{env('APP_URL')}}/{{$vo->image}}" style="width: 62px">
+                                            </a>
                                         </td>
                                         <td>
-                                            <img alt="image" class="img-circle" src="{{$vo->qrCode}}" style="width: 62px">
-
+                                            <a href="{{env('APP_URL')}}{{$vo->qrCode}}" target="view_window">
+                                                <img alt="image" src="{{env('APP_URL')}}{{$vo->qrCode}}" style="width: 62px">
+                                            </a>
                                         </td>
                                         <td>
                                             @if($vo->status == 0) 正常 @elseif($vo->status == 1) 禁用 @endif

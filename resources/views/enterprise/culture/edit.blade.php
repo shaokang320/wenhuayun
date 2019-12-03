@@ -19,7 +19,9 @@
                         <div class="form-group"><label class="col-sm-2 control-label">缩略图</label>
                             <div class="col-sm-4">
                                 <input type="file" name="img"/>
-                                <img src="{{env('APP_URL')}}/{{$info->image}}"/>
+                                <a href="{{env('APP_URL')}}/{{$info->image}}" target="view_window">
+                                    <img alt="image" src="{{env('APP_URL')}}/{{$info->image}}" style="width: 80px">
+                                </a>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
