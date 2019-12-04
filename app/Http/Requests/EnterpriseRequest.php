@@ -47,7 +47,7 @@ class EnterpriseRequest extends BaseRequest
     //场景验证规则
     protected $scene = [
         'add' => ['name', 'accounts', 'password', 'mobile', 'longitude', 'latitude', 'qrCode',  'address', 'status', 'createTime'],
-        'edit' => ['name', 'accounts', 'mobile', 'longitude', 'latitude', 'qrCode', 'end_time', 'address', 'status','updateTime'],
+        'edit' => ['name', 'mobile', 'longitude', 'latitude', 'address', 'updateTime'],
         'del' => ['id'],
     ];
 

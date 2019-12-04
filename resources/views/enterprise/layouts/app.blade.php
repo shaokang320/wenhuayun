@@ -84,7 +84,7 @@
                     </ul>
                 </li>
                 <li class="item">
-                    <a href="<?php echo route('admin');?>"><i class="fa fa-users"></i> <span class="nav-label">企业信息</span> </a>
+                    <a href="<?php echo route('enterprise_product');?>"><i class="fa fa-users"></i> <span class="nav-label">企业信息</span> </a>
                 </li>
             </ul>
             <script>

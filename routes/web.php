@@ -50,6 +50,9 @@ Route::group(['prefix' => 'enterprise', 'namespace' => 'Enterprise', 'middleware
     Route::get('/culture/del', 'CultureController@del')->name('enterprise_culture_del');
     Route::post('/culture/editStatus', 'CultureController@editStatus')->name('enterprise_culture_editStatus');
 
+    //企业信息修改
+    Route::any('/product', 'ProductController@index')->name('enterprise_product');
+
     //登录注销
     Route::get('/login', 'LoginController@login')->name('enterprise_login');
     Route::post('/dologin', 'LoginController@dologin')->name('enterprise_dologin');
