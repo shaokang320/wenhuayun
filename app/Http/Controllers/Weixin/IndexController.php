@@ -24,7 +24,7 @@ class IndexController extends CommonController
         {
             $res = '';
         }
-        $data['info'] = '';
+        $data['info'] = $res;
         $this->ApiJson('200',$data,'请求成功');
     }
 
