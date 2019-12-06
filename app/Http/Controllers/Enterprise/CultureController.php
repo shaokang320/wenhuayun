@@ -59,12 +59,12 @@ class CultureController extends CommonController
         {
             $contents = "/uploads/enterprise/wenhua/qrcode/" . date("Y").'/'.date('m').'/'.date('Ymd');
             $path = public_path() . $contents;
-            $qrcode = '/'.date('YmdHis').'.png';
+            $qrcode = '/'.date('YmdHis').'qrcode.jpg';
             if (!is_dir($path))
             {
                 mkdir($path,0777,true);
             }
-            QrCode::size(200)->generate('https://wenhua.newheightchina.com?wenhua_id='.$res['data'],$path.$qrcode);
+            QrCode::format('png')->encoding('UTF-8')->size(200)->generate('https://wenhua.newheightchina.com?wenhua_id='.$res['data'],$path.$qrcode);
             $data['qrCode'] = $contents.$qrcode;
             model('Culture')->where('id',$res['data'])->update($data);
             success_jump('添加成功', route('enterprise_culture'),'2');
