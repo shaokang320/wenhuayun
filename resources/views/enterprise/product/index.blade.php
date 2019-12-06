@@ -43,7 +43,6 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
-
                         <div class="form-group">
                             <label class="col-sm-2 control-label">店铺地址 </label>
                             <div class="col-sm-4">
@@ -51,6 +50,7 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
+
                         <button type="button" class="btn btn-success" id="submit">保存(Submit)</button>&nbsp;&nbsp;
                         <button type="reset" class="btn btn-default" value="Reset">重置(Reset)</button>
                     </form>

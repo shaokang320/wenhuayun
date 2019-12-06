@@ -57,7 +57,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{env('APP_URL')}}{{$vo->qrCode}}" download="{{$vo->title}}">
+                                            <a href="{{env('APP_URL')}}{{$vo->qrCode}}" download="{{$vo->id}}{{$vo->title}}">
                                                 <img alt="image" src="{{env('APP_URL')}}{{$vo->qrCode}}" style="width: 62px">
                                             </a>
                                         </td>

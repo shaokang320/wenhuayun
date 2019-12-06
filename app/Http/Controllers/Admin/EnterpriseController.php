@@ -62,7 +62,7 @@ class EnterpriseController extends CommonController
             {
                 mkdir($path,0777,true);
             }
-            QrCode::format('png')->encoding('UTF-8')->size(200)->generate('https://wenhua.newheightchina.com?id='.$res['data'],$path.$qrcode);
+            QrCode::format('png')->encoding('UTF-8')->size(400)->generate('https://wenhua.newheightchina.com?id='.$res['data'],$path.$qrcode);
             $data['qrCode'] = $contents.$qrcode;
             model('Enterprise')->where('id',$res['data'])->update($data);
             success_jump('添加成功', route('admin_enterprise'),'2');
