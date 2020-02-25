@@ -41,6 +41,7 @@
                                 <th data-toggle="true">ID</th>
                                 <th data-hide="phone">企业名称</th>
                                 <th data-hide="phone">手机号</th>
+                                <th data-hide="phone">限制条数</th>
                                 <th data-hide="phone">登录账号</th>
                                 <th data-hide="phone,tablet" >帐号使用期限</th>
                                 <th data-hide="phone">帐号状态</th>
@@ -60,6 +61,9 @@
                                         </td>
                                         <td>
                                             {{$vo->mobile}}
+                                        </td>
+                                        <td>
+                                            {{$vo->rowCount}}
                                         </td>
                                         <td>
                                             {{$vo->accounts}}
@@ -89,13 +93,13 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan='8'>暂无企业信息</td>
+                                    <td colspan='9'>暂无企业信息</td>
                                 </tr>
                             @endif
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="8">
+                                <td colspan="9">
                                     <ul class="pagination pull-right">{{ $posts->links() }}</ul>
                                 </td>
                             </tr>

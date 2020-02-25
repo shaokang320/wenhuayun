@@ -27,6 +27,12 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">限制条数</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control required" name="rowCount" value="{{$info->rowCount}}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group"><label class="col-sm-2 control-label">经度</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="longitude" value="{{$info->longitude}}">
