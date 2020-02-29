@@ -204,6 +204,11 @@ class Culture extends BaseModel
         return $res;
     }
 
+    //获取条数
+    public function count($where)
+    {
+        return $this->getDb()->where($where)->count();
+    }
     /**
      * 打印sql
      */
