@@ -7,7 +7,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <form id="addarc" class="form-horizontal" role="form" enctype="multipart/form-data">{{ csrf_field() }}
-                        <div class="form-group"><label class="col-sm-2 control-label required">店铺名称</label>
+                        <div class="form-group"><label class="col-sm-2 control-label required">企业名称</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control required" name="name" value="{{$info->name}}">
                             </div>
@@ -22,6 +22,12 @@
                         <div class="form-group"><label class="col-sm-2 control-label">联系手机</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control required" name="mobile" value="{{$info->mobile}}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">限制条数</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control required" name="rowCount" disabled value="{{$info->rowCount}}">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>

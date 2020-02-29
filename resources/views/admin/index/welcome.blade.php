@@ -15,6 +15,6 @@
     Laravel版本：{{$laravel_version}}
     <h3>开发人员</h3>
     陈邵康<br><br>
-    我们的联系方式：shaokang_chen@163.com<br><br>
+    我们的联系方式：lyhd888888@126.com<br><br>
     &copy; 青岛新高度信息科技有限公司 版权所有
 @endsection

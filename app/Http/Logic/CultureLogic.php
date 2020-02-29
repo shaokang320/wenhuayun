@@ -123,6 +123,13 @@ class CultureLogic extends BaseLogic
         return ReturnData::create(ReturnData::FAIL);
     }
 
+    //获取条数
+    public function rowCount($where)
+    {
+        $res = $this->getModel()->count($where);
+        return ReturnData::create(ReturnData::SUCCESS, $res);
+    }
+
     /**
      * 数据获取器
      * @param array $data 要转化的数据

@@ -3,7 +3,7 @@ namespace app\Http\Controllers\Enterprise;
 use App\Common\ReturnData;
 use App\Http\Controllers\Enterprise\CommonController;
 use App\Http\Logic\CultureLogic;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -42,6 +42,15 @@ class CultureController extends CommonController
 
     public function add()
     {
+        $rowCount = DB::table('enterprise')->where(array('id' => $this->enterprise_info['id']))->value('rowCount');
+        //获取已发布条数
+        $where['enterprise_id'] = $this->enterprise_info['id'];
+        $rows = $this->getCultureLogic()->rowCount($where);
+        if ($rows['data'] >= $rowCount)
+        {
+            error_jump('该账号发布条数已使用完，请联系管理员增加条数', route('enterprise_culture'),3);
+        }
+
         return view('enterprise.culture.add');
     }
 
