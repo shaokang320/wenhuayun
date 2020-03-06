@@ -52,6 +52,7 @@ class EnterpriseController extends CommonController
             error_jump('帐号已存在');
         }
         unset($_POST['_token']);
+        $_POST['password'] = md5($_POST['password']);
         $res = $this->getEnterpriseLogic()->add($_POST);
         if($res['code'] == 0)
         {
