@@ -67,7 +67,7 @@
                     </div>
                 </li>
                 <li class="item">
-                    <a href="<?php echo route('admin');?>"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a>
+                    <a href="<?php echo route('enterprise');?>"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a>
                 </li>
                 <li class="item">
                     <a href="#"><i class="fa fa-users"></i> <span class="nav-label">产品管理</span> <span class="fa arrow"></span></a>
