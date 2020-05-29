@@ -61,6 +61,10 @@ Route::group(['prefix' => 'enterprise', 'namespace' => 'Enterprise', 'middleware
     //页面跳转
     Route::get('/jump', 'LoginController@jump')->name('admin_jump');
 
+    Route::post('/upload', 'UploadController@upload_img')->name('upload_img');
+    Route::post('/upload/upload_video', 'UploadController@upload_video')->name('upload_video');
+    Route::post('/upload/upload_file', 'UploadController@upload_file')->name('upload_file');
+
 });
 
 //前台路由

@@ -37,6 +37,7 @@
                                 <th data-hide="phone">缩略图</th>
                                 <th data-hide="phone">二维码连接</th>
                                 <th data-hide="phone">状态</th>
+                                <th data-hide="phone">购物链接</th>
                                 <th data-hide="phone">添加时间</th>
                                 <th class="text-right" data-sort-ignore="true">操作</th>
                             </tr>
@@ -63,6 +64,9 @@
                                         </td>
                                         <td>
                                             @if($vo->status == 0) 正常 @elseif($vo->status == 1) 禁用 @endif
+                                        </td>
+                                        <td>
+                                            {{$vo->link}}
                                         </td>
                                         <td>
                                             {{$vo->createTime}}

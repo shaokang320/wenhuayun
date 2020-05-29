@@ -20,5 +20,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        'http://www.lianyi.com/enterprise/upload',
+        'http://www.lianyi.com/enterprise/upload/upload_video',
+        'http://www.lianyi.com/enterprise/upload/upload_file',
     ];
 }
