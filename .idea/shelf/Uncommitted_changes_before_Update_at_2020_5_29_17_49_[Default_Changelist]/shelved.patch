@@ -1,0 +1,683 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_2020_5_29_15_48_[Default_Changelist]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_2020_5_29_15_48_[Default_Changelist]/shelved.patch	(date 1590738538012)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_2020_5_29_15_48_[Default_Changelist]/shelved.patch	(date 1590738538012)
+@@ -0,0 +1,475 @@
++Index: routes/web.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?php\r\n\r\n/*\r\n|--------------------------------------------------------------------------\r\n| Web Routes\r\n|--------------------------------------------------------------------------\r\n|\r\n| Here is where you can register web routes for your application. These\r\n| routes are loaded by the RouteServiceProvider within a group which\r\n| contains the \"web\" middleware group. Now create something great!\r\n|\r\n*/\r\n\r\n//后台路由\r\nRoute::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['web']], function () {\r\n    Route::get('/', 'IndexController@index')->name('admin');\r\n    Route::get('/welcome', 'IndexController@welcome')->name('admin_welcome');\r\n\r\n    //企业管理\r\n    Route::get('/enterprise', 'EnterpriseController@index')->name('admin_enterprise');\r\n    Route::get('/enterprise/add', 'EnterpriseController@add')->name('admin_enterprise_add');\r\n    Route::post('/enterprise/doadd', 'EnterpriseController@doadd')->name('admin_enterprise_doadd');\r\n    Route::get('/enterprise/edit', 'EnterpriseController@edit')->name('admin_enterprise_edit');\r\n    Route::post('/enterprise/doedit', 'EnterpriseController@doedit')->name('admin_enterprise_doedit');\r\n    Route::post('/enterprise/editStatus', 'EnterpriseController@editStatus')->name('admin_enterprise_editStatus');\r\n    Route::get('/enterprise/del', 'EnterpriseController@del')->name('admin_enterprise_del');\r\n\r\n    //后台登录\r\n    Route::get('/login', 'LoginController@login')->name('admin_login');\r\n    Route::post('/dologin', 'LoginController@dologin')->name('admin_dologin');\r\n    Route::get('/logout', 'LoginController@logout')->name('admin_logout');\r\n    Route::get('/recoverpwd', 'LoginController@recoverpwd')->name('admin_recoverpwd');\r\n    //页面跳转\r\n    Route::get('/jump', 'LoginController@jump')->name('admin_jump');\r\n\r\n});\r\n\r\n// 企业后台\r\nRoute::group(['prefix' => 'enterprise', 'namespace' => 'Enterprise', 'middleware' => ['web']], function () {\r\n    Route::any('/', 'IndexController@index')->name('enterprise');\r\n    Route::get('/welcome', 'IndexController@welcome')->name('enterprise_welcome');\r\n    Route::any('/editPwd', 'IndexController@editPwd')->name('enterprise_editPwd');\r\n\r\n    //企业文化\r\n    Route::any('/culture', 'CultureController@index')->name('enterprise_culture');\r\n    Route::get('/culture/add', 'CultureController@add')->name('enterprise_culture_add');\r\n    Route::post('/culture/doadd', 'CultureController@doadd')->name('enterprise_culture_doadd');\r\n    Route::get('/culture/edit', 'CultureController@edit')->name('enterprise_culture_edit');\r\n    Route::post('/culture/doedit', 'CultureController@doedit')->name('enterprise_culture_doedit');\r\n    Route::get('/culture/del', 'CultureController@del')->name('enterprise_culture_del');\r\n    Route::post('/culture/editStatus', 'CultureController@editStatus')->name('enterprise_culture_editStatus');\r\n\r\n    //企业信息修改\r\n    Route::any('/product', 'ProductController@index')->name('enterprise_product');\r\n\r\n    //登录注销\r\n    Route::get('/login', 'LoginController@login')->name('enterprise_login');\r\n    Route::post('/dologin', 'LoginController@dologin')->name('enterprise_dologin');\r\n    Route::get('/logout', 'LoginController@logout')->name('enterprise_logout');\r\n    Route::get('/recoverpwd', 'LoginController@recoverpwd')->name('enterprise_recoverpwd');\r\n    //页面跳转\r\n    Route::get('/jump', 'LoginController@jump')->name('admin_jump');\r\n\r\n});\r\n\r\n//前台路由\r\nRoute::group(['namespace' => 'Home'], function () {\r\n    Route::get('/', 'IndexController@index')->name('home');\r\n    Route::get('/page404', 'IndexController@page404')->name('page404');         //404页面\r\n\r\n});\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- routes/web.php	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ routes/web.php	(date 1590722161805)
++@@ -61,6 +61,10 @@
++     //页面跳转
++     Route::get('/jump', 'LoginController@jump')->name('admin_jump');
++ 
+++    Route::post('/upload', 'UploadController@upload_img')->name('upload_img');
+++    Route::post('/upload/upload_video', 'UploadController@upload_video')->name('upload_video');
+++    Route::post('/upload/upload_file', 'UploadController@upload_file')->name('upload_file');
+++
++ });
++ 
++ //前台路由
++Index: resources/views/enterprise/culture/edit.blade.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><script src=\"<?php echo route('home'); ?>/js/jquery-3.3.1.min.js\"></script><!--需要引入jquery-->\r\n@extends('enterprise.layouts.app')\r\n@section('title', '企业文化修改')\r\n<meta name=\"csrf-token\" content=\"{{ csrf_token() }}\"><!--需要csrf token-->\r\n@section('content')\r\n    <h5 class=\"sub-header\">企业文化修改</h5>\r\n    <div class=\"row\">\r\n        <div class=\"col-lg-12\">\r\n            <div class=\"ibox float-e-margins\">\r\n                <div class=\"ibox-content\">\r\n                    <form id=\"addarc\" method=\"post\" action=\"{{route('enterprise_culture_doedit')}}\" role=\"form\" enctype=\"multipart/form-data\" class=\"form-horizontal\">\r\n                        <div class=\"form-group\"><label class=\"col-sm-2 control-label required\">标题</label>\r\n                            <div class=\"col-sm-4\">\r\n                                <input type=\"text\" class=\"form-control required\" name=\"title\" value=\"{{$info->title}}\">\r\n                                <input type=\"hidden\" name=\"id\" value=\"{{$id}}\">\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"hr-line-dashed\"></div>\r\n                        <div class=\"form-group\"><label class=\"col-sm-2 control-label\">缩略图</label>\r\n                            <div class=\"col-sm-4\">\r\n                                <input type=\"file\" name=\"img\"/>\r\n                                <a href=\"{{env('APP_URL')}}/{{$info->image}}\" target=\"view_window\">\r\n                                    <img alt=\"image\" src=\"{{env('APP_URL')}}/{{$info->image}}\" style=\"width: 80px\">\r\n                                </a>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"hr-line-dashed\"></div>\r\n                        <div class=\"form-group\" id=\"aetherupload-wrapper\"><label class=\"col-sm-2 control-label\">上传视频</label>\r\n                            <div class=\"col-sm-4\">\r\n                                <div class=\"controls\">\r\n                                    <input type=\"file\" id=\"aetherupload-resource\" onchange=\"aetherupload(this).upload()\"/>\r\n                                    <div class=\"progress \" style=\"height: 6px;margin-bottom: 2px;margin-top: 10px;width: 200px;\">\r\n                                        <div id=\"aetherupload-progressbar\" style=\"background:blue;height:6px;width:0;\"></div>\r\n                                    </div>\r\n                                    <span style=\"font-size:12px;color:#aaa;\" id=\"aetherupload-output\"></span>\r\n                                    <input type=\"hidden\" name=\"video\" id=\"aetherupload-savedpath\">\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    {{ csrf_field() }} <!--需要标识csrf token的field-->\r\n                        <div class=\"hr-line-dashed\"></div>\r\n                        <div class=\"form-group\"><label class=\"col-sm-2 control-label\">文字介绍</label>\r\n                            <div class=\"col-sm-4\">\r\n                                <textarea type=\"text\" rows=\"6\" class=\"form-control required\" name=\"body\">{{$info->body}}</textarea>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"hr-line-dashed\"></div>\r\n\r\n                        <button type=\"submit\" class=\"btn btn-success\" value=\"Submit\">保存(Submit)</button>&nbsp;&nbsp;<button type=\"reset\" class=\"btn btn-default\" value=\"Reset\">重置(Reset)</button>\r\n                    </form>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div><!-- 表单结束 -->\r\n    <script src=\"{{ URL::asset('vendor/aetherupload/js/spark-md5.min.js') }}\"></script><!--需要引入spark-md5.min.js，用以支持秒传功能-->\r\n    <script src=\"{{ URL::asset('vendor/aetherupload/js/aetherupload.js') }}\"></script><!--需要引入aetherupload.js-->\r\n    <script>\r\n        // success(someCallback)中声名的回调方法需在此定义，参数someCallback可为任意名称，此方法将会在上传完成后被调用\r\n        // 可使用this对象获得resourceName,resourceSize,resourceTempBaseName,resourceExt,groupSubdir,group,savedPath等属性的值\r\n        someCallback = function () {\r\n            // Example\r\n            $('#result').append(\r\n                '<p>执行回调 - 文件已上传，原名：<span >' + this.resourceName + '</span> | 大小：<span >' + parseFloat(this.resourceSize / (1000 * 1000)).toFixed(2) + 'MB' + '</span> | 储存名：<span >' + this.savedPath.substr(this.savedPath.lastIndexOf('_') + 1) + '</span></p>'\r\n            );\r\n        }\r\n        $(function(){\r\n            //重置\r\n            $('#addarc input[type=\"reset\"]').click(function(){\r\n                $(\".formtips\").remove();\r\n            });\r\n\r\n            $(\"#addarc\").submit(function(){\r\n                $(\".required\").trigger('blur');\r\n                var numError = $('#addarc .onError').length;\r\n\r\n                if(numError){return false;}\r\n            });\r\n        });\r\n    </script>\r\n@endsection\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- resources/views/enterprise/culture/edit.blade.php	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ resources/views/enterprise/culture/edit.blade.php	(date 1590738523491)
++@@ -1,4 +1,72 @@
++ <script src="<?php echo route('home'); ?>/js/jquery-3.3.1.min.js"></script><!--需要引入jquery-->
+++<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/froala_editor.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/froala_style.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/code_view.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/draggable.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/colors.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/emoticons.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/image_manager.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/image.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/line_breaker.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/table.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/char_counter.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/video.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/fullscreen.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/file.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/quick_insert.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/help.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/third_party/spell_checker.css">
+++<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/special_characters.css">
+++<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+++<style>
+++    .fr-wrapper:nth-child(2){
+++        display: none;
+++    }
+++    body {
+++        text-align: center;
+++    }
+++
+++</style>
+++
+++<script type="text/javascript"
+++        src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+++<script type="text/javascript"
+++        src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+++
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/froala_editor.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/align.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/char_counter.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/code_beautifier.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/code_view.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/colors.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/draggable.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/emoticons.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/entities.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/file.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/font_size.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/font_family.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/fullscreen.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/image.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/image_manager.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/line_breaker.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/inline_style.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/link.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/lists.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/paragraph_format.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/paragraph_style.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/quick_insert.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/quote.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/table.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/save.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/url.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/video.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/help.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/print.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/third_party/spell_checker.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/special_characters.min.js"></script>
+++<script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/word_paste.min.js"></script>
+++<script type="text/javascript" src='<?php echo route('home'); ?>/froala_editor/js/languages/zh_cn.js'></script>
++ @extends('enterprise.layouts.app')
++ @section('title', '企业文化修改')
++ <meta name="csrf-token" content="{{ csrf_token() }}"><!--需要csrf token-->
++@@ -39,13 +107,17 @@
++                         </div>
++                     {{ csrf_field() }} <!--需要标识csrf token的field-->
++                         <div class="hr-line-dashed"></div>
++-                        <div class="form-group"><label class="col-sm-2 control-label">文字介绍</label>
+++
+++                        <div class="form-group"><label class="col-sm-2 control-label required">购物链接</label>
++                             <div class="col-sm-4">
++-                                <textarea type="text" rows="6" class="form-control required" name="body">{{$info->body}}</textarea>
+++                                <input type="text" class="form-control required" name="link" value="{{$info->link}}">
++                             </div>
++                         </div>
+++                        <div class="hr-line-dashed"></div>
+++                        <div id="editor">
+++                            <textarea id="edit" name="body">{{$info->body}}</textarea>
+++                        </div>
++                         <div class="hr-line-dashed"></div>
++-
++                         <button type="submit" class="btn btn-success" value="Submit">保存(Submit)</button>&nbsp;&nbsp;<button type="reset" class="btn btn-default" value="Reset">重置(Reset)</button>
++                     </form>
++                 </div>
++@@ -76,5 +148,44 @@
++                 if(numError){return false;}
++             });
++         });
+++        (function() {
+++            new FroalaEditor('#edit',{
+++                key: '',
+++                language: 'zh_cn',
+++                height: 300,
+++                dragInline:false,
+++
+++
+++                // disable quick insert
+++                quickInsertTags: [],
+++
+++                // toolbar buttons
+++                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'paragraphFormat', 'fontSize', 'color', '|', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertFile', 'insertImage', 'insertVideo', 'embedly', 'insertTable', '|', 'insertHR', 'selectAll', 'clearFormatting', '|', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+++
+++                // upload file
+++                fileUploadParam: 'file',
+++                fileUploadURL: '{{route('upload_file')}}',
+++                fileUploadMethod: 'POST',
+++                fileMaxSize: 20 * 1024 * 1024,
+++                fileAllowedTypes: ['*'],
+++
+++                // upload image
+++                imageUploadParam: 'file',
+++                imageUploadURL: '{{route('upload_img')}}',
+++                imageUploadMethod: 'POST',
+++                imageMaxSize: 5 * 1024 * 1024,
+++                imageAllowedTypes: ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'svg+xml'],
+++
+++                // upload video
+++                videoWidth: 500,
+++                videoResponsive: true,
+++                videoUploadParam: 'file',
+++                videoUploadURL: '{{route('upload_video')}}',
+++                videoUploadMethod: 'POST',
+++                videoMaxSize: 50 * 1024 * 1024,
+++                videoAllowedTypes: ['avi', 'mov', 'mp4', 'm4v', 'mpeg', 'mpg', 'wmv', 'ogv'],
+++
+++            })
+++        })()
++     </script>
++ @endsection
++Index: app/Http/Controllers/Enterprise/CultureController.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?php\r\nnamespace app\\Http\\Controllers\\Enterprise;\r\nuse App\\Common\\ReturnData;\r\nuse App\\Http\\Controllers\\Enterprise\\CommonController;\r\nuse App\\Http\\Logic\\CultureLogic;\r\nuse Illuminate\\Support\\Facades\\DB;\r\nuse Illuminate\\Http\\Request;\r\nuse SimpleSoftwareIO\\QrCode\\Facades\\QrCode;\r\n\r\nclass CultureController extends CommonController\r\n{\r\n    public function __construct()\r\n    {\r\n        parent::__construct();\r\n    }\r\n\r\n    public function getCultureLogic ()\r\n    {\r\n        return new CultureLogic();\r\n    }\r\n\r\n    public function index()\r\n    {\r\n        $res = '';\r\n        $where = function ($query) use ($res) {\r\n            if ($_REQUEST)\r\n            {\r\n                if (isset($_REQUEST[\"title\"])) {\r\n                    $query->where('title', 'like', '%' . myTrim($_REQUEST['title']) . '%');\r\n                }\r\n                if (isset($_REQUEST[\"status\"])) {\r\n                    $query->where('status', myTrim($_REQUEST[\"status\"]));\r\n                }\r\n            }\r\n            $query->where('enterprise_id', $this->enterprise_info['id']);\r\n        };\r\n        $posts = parent::pageList('culture', $where, 'id');\r\n        $data['posts'] = $posts;\r\n        $data['where'] = $_REQUEST;\r\n        return view('enterprise.culture.index',$data);\r\n    }\r\n\r\n    public function add()\r\n    {\r\n        $rowCount = DB::table('enterprise')->where(array('id' => $this->enterprise_info['id']))->value('rowCount');\r\n        //获取已发布条数\r\n        $where['enterprise_id'] = $this->enterprise_info['id'];\r\n        $rows = $this->getCultureLogic()->rowCount($where);\r\n        if ($rows['data'] >= $rowCount)\r\n        {\r\n            error_jump('该账号发布条数已使用完，请联系管理员增加条数', route('enterprise_culture'),3);\r\n        }\r\n\r\n        return view('enterprise.culture.add');\r\n    }\r\n\r\n    public function doadd(Request $request)\r\n    {\r\n        $tmp = $request->file('img');\r\n        $arr = uploadImage($tmp,'enterprise/wenhua','wenhua');\r\n        $_POST['image'] = $arr['path'];\r\n        $_POST['enterprise_id'] = $this->enterprise_info['id'];\r\n\r\n        $video = explode(\"_\", $request->video);\r\n        $_POST['video_path'] = '/aetherupload/'.$video[0].'/'.$video[1].'/'.$video[2];\r\n        $res = $this->getCultureLogic()->add($_POST);\r\n        if ($res['code'] == 0)\r\n        {\r\n            $contents = \"/uploads/enterprise/wenhua/qrcode/\" . date(\"Y\").'/'.date('m').'/'.date('Ymd');\r\n            $path = public_path() . $contents;\r\n            $qrcode = '/'.date('YmdHis').'qrcode.jpg';\r\n            if (!is_dir($path))\r\n            {\r\n                mkdir($path,0777,true);\r\n            }\r\n            QrCode::format('png')->encoding('UTF-8')->size(400)->generate('https://wenhua.newheightchina.com?wenhua_id='.$res['data'],$path.$qrcode);\r\n            $data['qrCode'] = $contents.$qrcode;\r\n            model('Culture')->where('id',$res['data'])->update($data);\r\n            success_jump('添加成功', route('enterprise_culture'),'2');\r\n        }\r\n\r\n    }\r\n\r\n    public function edit()\r\n    {\r\n        if (!empty($_GET[\"id\"])) {\r\n            $id = $_GET[\"id\"];\r\n        } else {\r\n            $id = \"\";\r\n        }\r\n        if (preg_match('/[0-9]*/', $id)) {\r\n        } else {\r\n            exit;\r\n        }\r\n        $where['id'] = $id;\r\n        $info = $this->getCultureLogic()->getOne($where);\r\n        $data['info'] = $info;\r\n        $data['id'] = $id;\r\n        return view('enterprise.culture.edit',$data);\r\n    }\r\n\r\n    public function doedit(Request $request)\r\n    {\r\n        if (!empty($request->id)) {\r\n            $id = $request->id;\r\n        } else {\r\n            $id = \"\";\r\n        }\r\n        if (preg_match('/[0-9]*/', $id)) {\r\n        } else {\r\n            exit;\r\n        }\r\n        if (!empty($request->file('img')))\r\n        {\r\n            $tmp = $request->file('img');\r\n            $arr = uploadImage($tmp,'enterprise/wenhua','wenhua');\r\n            $_POST['image'] = $arr['path'];\r\n        }\r\n        if (!empty($request->video))\r\n        {\r\n            $video = explode(\"_\", $request->video);\r\n            $_POST['video_path'] = '/aetherupload/'.$video[0].'/'.$video[1].'/'.$video[2];\r\n        }\r\n        $where['id'] = $id;\r\n        $res = $this->getCultureLogic()->edit($_POST,$where);\r\n        if ($res['code'] == 0)\r\n        {\r\n            success_jump('添加成功', route('enterprise_culture'),'2');\r\n        }\r\n        error_jump($res['msg']);\r\n    }\r\n\r\n    public function del(Request $request)\r\n    {\r\n        $res = $this->getCultureLogic()->del(['id'=>$request->id]);\r\n        if ($res['code'] == 0)\r\n        {\r\n            success_jump('删除成功', route('enterprise_culture'),'2');\r\n        }\r\n        error_jump($res['msg']);\r\n    }\r\n\r\n    public function editStatus()\r\n    {\r\n        $id = $_POST[\"id\"];\r\n        unset($_POST[\"_token\"]);\r\n        unset($_POST[\"id\"]);\r\n        $_POST['updateTime'] = date('Y-m-d H:i:s'); //添加&更新时间\r\n        if (model('Culture')->where('id',$id)->update($_POST))\r\n        {\r\n            return ReturnData::create(ReturnData::SUCCESS);\r\n        } else\r\n        {\r\n            return ReturnData::create(ReturnData::SYSTEM_FAIL);\r\n        }\r\n    }\r\n}\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/Http/Controllers/Enterprise/CultureController.php	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ app/Http/Controllers/Enterprise/CultureController.php	(date 1590733475599)
++@@ -50,7 +50,6 @@
++         {
++             error_jump('该账号发布条数已使用完，请联系管理员增加条数', route('enterprise_culture'),3);
++         }
++-
++         return view('enterprise.culture.add');
++     }
++ 
++Index: resources/views/enterprise/culture/index.blade.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>@extends('enterprise.layouts.app')\r\n@section('title', '企业文化')\r\n@section('content')\r\n    <div class=\"wrapper wrapper-content animated fadeInRight ecommerce\">\r\n        <div class=\"ibox-content m-b-sm border-bottom\">\r\n            <div class=\"row\">\r\n                <form id=\"searcharc\" class=\"navbar-form\" method=\"get\" action=\"{{route('enterprise_culture')}}\">\r\n                    <div class=\"col-sm-3\">\r\n                        <div class=\"form-group\">\r\n                            <label class=\"control-label\" for=\"product_name\">标题</label>\r\n                            <input type=\"text\" id=\"product_name\" name=\"title\" value=\"@if(@isset($where['title'])){{$where['title']}} @endif\" class=\"form-control\">\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-sm-2\">\r\n                        <div class=\"form-group\">\r\n                            <label class=\"control-label\" for=\"quantity\">状态</label>\r\n                            <select name=\"status\" id=\"status\" class=\"form-control\">\r\n                                <option></option>\r\n                                <option value=\"0\" {{@$where['status'] == '0' ? 'selected' :''}}>正常</option>\r\n                                <option value=\"1\" {{@$where['status'] == 1 ? 'selected' :''}}>禁用</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"submit\" class=\"btn btn-w-m btn-info\">查询</button>\r\n                </form>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"col-lg-12\">\r\n                <div class=\"ibox\">\r\n                    <div class=\"ibox-content\">\r\n                        <table class=\"footable table table-stripped toggle-arrow-tiny\">\r\n                            <thead>\r\n                            <tr>\r\n                                <th data-toggle=\"true\">ID</th>\r\n                                <th data-hide=\"phone\">标题</th>\r\n                                <th data-hide=\"phone\">缩略图</th>\r\n                                <th data-hide=\"phone\">二维码连接</th>\r\n                                <th data-hide=\"phone\">状态</th>\r\n                                <th data-hide=\"phone\">添加时间</th>\r\n                                <th class=\"text-right\" data-sort-ignore=\"true\">操作</th>\r\n                            </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                            @if(count($posts))\r\n                                @foreach ($posts as $vo)\r\n                                    <tr>\r\n                                        <td>\r\n                                            {{$vo->id}}\r\n                                        </td>\r\n                                        <td>\r\n                                            {{$vo->title}}\r\n                                        </td>\r\n                                        <td>\r\n                                            <a href=\"{{env('APP_URL')}}/{{$vo->image}}\" target=\"view_window\">\r\n                                                <img alt=\"image\" src=\"{{env('APP_URL')}}/{{$vo->image}}\" style=\"width: 62px\">\r\n                                            </a>\r\n                                        </td>\r\n                                        <td>\r\n                                            <a href=\"{{env('APP_URL')}}{{$vo->qrCode}}\" download=\"{{$vo->id}}{{$vo->title}}\">\r\n                                                <img alt=\"image\" src=\"{{env('APP_URL')}}{{$vo->qrCode}}\" style=\"width: 62px\">\r\n                                            </a>\r\n                                        </td>\r\n                                        <td>\r\n                                            @if($vo->status == 0) 正常 @elseif($vo->status == 1) 禁用 @endif\r\n                                        </td>\r\n                                        <td>\r\n                                            {{$vo->createTime}}\r\n                                        </td>\r\n                                        <td class=\"text-right\">\r\n                                            <a class=\"btn btn-primary btn-xs\" href=\"{{route('enterprise_culture_edit')}}?id={{$vo->id}}\">修改</a>\r\n                                            @if($vo->status == 0)\r\n                                                <a class=\"label label-danger\" onclick=\"editStatus('{{route('enterprise_culture_editStatus')}}','{{$vo->id}}',1)\" href=\"javascript:;\">禁用</a>\r\n                                            @else\r\n                                                <a class=\"btn btn-primary btn-xs\" onclick=\"editStatus('{{route('enterprise_culture_editStatus')}}','{{$vo->id}}','0')\" href=\"javascript:;\">恢复</a>\r\n                                            @endif\r\n                                            <div class=\"btn-group\">\r\n                                                <a class=\"label label-danger\" onclick=\"delconfirm('{{route('enterprise_culture_del')}}?id={{$vo->id}}')\" href=\"javascript:;\">删除</a>\r\n                                            </div>\r\n                                        </td>\r\n                                    </tr>\r\n                                @endforeach\r\n                            @else\r\n                                <tr>\r\n                                    <td colspan='8'>暂无企业文化信息</td>\r\n                                </tr>\r\n                            @endif\r\n                            </tbody>\r\n                            <tfoot>\r\n                            <tr>\r\n                                <td colspan=\"8\">\r\n                                    <ul class=\"pagination pull-right\">{{ $posts->links() }}</ul>\r\n                                </td>\r\n                            </tr>\r\n                            </tfoot>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <script language=\"javascript\" type=\"text/javascript\" src=\"<?php echo route('home'); ?>/js/layer/layer.js\"></script>\r\n    <script>\r\n        $(function(){\r\n            $('.required').on('focus', function() {\r\n                $(this).removeClass('input-error');\r\n            });\r\n\r\n            $(\"#searcharc\").submit(function(e){\r\n                $(this).find('.required').each(function(){\r\n                    if( $(this).val() == \"\" )\r\n                    {\r\n                        e.preventDefault();\r\n                        $(this).addClass('input-error');\r\n                    }\r\n                    else\r\n                    {\r\n                        $(this).removeClass('input-error');\r\n                    }\r\n                });\r\n            });\r\n        });\r\n\r\n        function editStatus(url,id,status)\r\n        {\r\n            if(confirm(\"确定更改吗\"))\r\n            {\r\n                $.post(url, {\r\n                    id: id,\r\n                    status: status,\r\n                    _token :'{{csrf_token()}}'\r\n                }, function (res) {\r\n                    if (res.code == 0) {\r\n                        layer.msg('操作成功');\r\n                        window.location.reload();\r\n                    }\r\n                    else {\r\n                        layer.msg('操作失败');\r\n                        return false;\r\n                    }\r\n                }, 'json');\r\n            }\r\n        }\r\n\r\n        //删除确认框\r\n        function delconfirm(url)\r\n        {\r\n            if(confirm(\"确定删除吗\"))\r\n            {\r\n                location.href= url;\r\n            }\r\n        }\r\n\r\n    </script>\r\n@endsection\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- resources/views/enterprise/culture/index.blade.php	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ resources/views/enterprise/culture/index.blade.php	(date 1590738197255)
++@@ -37,6 +37,7 @@
++                                 <th data-hide="phone">缩略图</th>
++                                 <th data-hide="phone">二维码连接</th>
++                                 <th data-hide="phone">状态</th>
+++                                <th data-hide="phone">购物链接</th>
++                                 <th data-hide="phone">添加时间</th>
++                                 <th class="text-right" data-sort-ignore="true">操作</th>
++                             </tr>
++@@ -63,6 +64,9 @@
++                                         </td>
++                                         <td>
++                                             @if($vo->status == 0) 正常 @elseif($vo->status == 1) 禁用 @endif
+++                                        </td>
+++                                        <td>
+++                                            {{$vo->link}}
++                                         </td>
++                                         <td>
++                                             {{$vo->createTime}}
++Index: app/Common/function.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?php\r\n/**\r\n * Created by PhpStorm.\r\n * User: pc\r\n * Date: 2019/5/27\r\n * Time: 13:48\r\n */\r\n//读取动态配置\r\nfunction sysconfig($varname='')\r\n{\r\n    $SysConfig = cache('SysConfig');\r\n    $res = '';\r\n\r\n    if(empty($SysConfig))\r\n    {\r\n        cache()->forget('SysConfig');\r\n\r\n        $SysConfig = \\App\\Http\\Model\\SysConfig::orderBy('system_id')->select('varname', 'value')->get()->toArray();\r\n\r\n        cache(['SysConfig' => $SysConfig], \\Carbon\\Carbon::now()->addMinutes(86400));\r\n    }\r\n\r\n    if($varname != '')\r\n    {\r\n        foreach($SysConfig as $row)\r\n        {\r\n\r\n            if($varname == $row['varname'])\r\n            {\r\n\r\n                $res = $row['value'];\r\n            }\r\n        }\r\n    }\r\n    else\r\n    {\r\n        $res = $SysConfig;\r\n    }\r\n\r\n    return $res;\r\n}\r\n\r\n/**\r\n * 更新配置文件 / 更新系统缓存\r\n */\r\nfunction updateconfig()\r\n{\r\n    $str_tmp=\"<?php\\r\\n\"; //得到php的起始符。$str_tmp将累加\r\n    $str_end=\"?>\"; //php结束符\r\n    $str_tmp.=\"//全站配置文件\\r\\n\";\r\n\r\n    $param = db(\"system\")->select();\r\n    foreach($param as $row)\r\n    {\r\n        $str_tmp .= 'define(\"'.$row['varname'].'\",\"'.$row['value'].'\"); // '.$row['info'].\"\\r\\n\";\r\n    }\r\n\r\n    $str_tmp .= $str_end; //加入结束符\r\n    //保存文件\r\n    $sf = APP_PATH.\"common.inc.php\"; //文件名\r\n    $fp = fopen($sf,\"w\"); //写方式打开文件\r\n    fwrite($fp,$str_tmp); //存入内容\r\n    fclose($fp); //关闭文件\r\n}\r\n\r\n//对象转数组\r\nfunction object_to_array($object, $get=0)\r\n{\r\n    $res = array();\r\n    if(!empty($object))\r\n    {\r\n        if($get==0)\r\n        {\r\n            foreach($object as $key=>$value)\r\n            {\r\n                $res[$key] = (array)$value;\r\n            }\r\n\r\n        }\r\n        elseif($get==1)\r\n        {\r\n            $res = (array)$object;\r\n        }\r\n    }\r\n\r\n    return $res;\r\n}\r\n/**\r\n * 截取中文字符串\r\n * @param string $string 中文字符串\r\n * @param int $sublen 截取长度\r\n * @param int $start 开始长度 默认0\r\n * @param string $code 编码方式 默认UTF-8\r\n * @param string $omitted 末尾省略符 默认...\r\n * @return string\r\n */\r\nfunction cut_str($string, $sublen=250, $omitted = '', $start=0, $code='UTF-8')\r\n{\r\n    $string = strip_tags($string);\r\n    $string = str_replace(\"　\",\"\",$string);\r\n    $string = mb_strcut($string,$start,$sublen,$code);\r\n    $string.= $omitted;\r\n    return $string;\r\n}\r\n\r\n/**\r\n * 操作错误跳转的快捷方法\r\n * @access protected\r\n * @param string $msg 错误信息\r\n * @param string $url 页面跳转地址\r\n * @param mixed $time 当数字时指定跳转时间\r\n * @return void\r\n */\r\nfunction error_jump($msg='', $url='', $time=3)\r\n{\r\n    if ($url=='' && isset($_SERVER[\"HTTP_REFERER\"]))\r\n    {\r\n        $url = $_SERVER[\"HTTP_REFERER\"];\r\n    }\r\n\r\n    if(!headers_sent())\r\n    {\r\n        header(\"Location:\".route('admin_jump').\"?error=$msg&url=$url&time=$time\");\r\n        exit();\r\n    }\r\n    else\r\n    {\r\n        $str = \"<meta http-equiv='Refresh' content='URL=\".route('admin_jump').\"?error=$msg&url=$url&time=$time\".\"'>\";\r\n        exit($str);\r\n    }\r\n}\r\n\r\n/**\r\n * 操作成功跳转的快捷方法\r\n * @access protected\r\n * @param string $msg 提示信息\r\n * @param string $url 页面跳转地址\r\n * @param mixed $time 当数字时指定跳转时间\r\n * @return void\r\n */\r\nfunction success_jump($msg='', $url='', $time=1)\r\n{\r\n    if ($url=='' && isset($_SERVER[\"HTTP_REFERER\"]))\r\n    {\r\n        $url = $_SERVER[\"HTTP_REFERER\"];\r\n    }\r\n\r\n    if(!headers_sent())\r\n    {\r\n        header(\"Location:\".route('admin_jump').\"?message=$msg&url=$url&time=$time\");\r\n        exit();\r\n    }\r\n    else\r\n    {\r\n        $str = \"<meta http-equiv='Refresh' content='URL=\".route('admin_jump').\"?message=$msg&url=$url&time=$time\".\"'>\";\r\n        exit($str);\r\n    }\r\n}\r\n\r\n/**\r\n * 调用逻辑接口\r\n * @param $name 逻辑类名称\r\n * @param array $config 配置\r\n * @return object\r\n */\r\nfunction logic($name = '', $config = [])\r\n{\r\n    static $instance = [];\r\n    $guid = $name . 'Logic';\r\n    if (!isset($instance[$guid]))\r\n    {\r\n        $class = 'App\\\\Http\\\\Logic\\\\' . ucfirst($name) . 'Logic';\r\n\r\n        if (class_exists($class))\r\n        {\r\n            $logic = new $class($config);\r\n            $instance[$guid] = $logic;\r\n        }\r\n        else\r\n        {\r\n            throw new Exception('class not exists:' . $class);\r\n        }\r\n    }\r\n\r\n    return $instance[$guid];\r\n}\r\n\r\n/**\r\n * 实例化（分层）模型\r\n * @param $name 模型类名称\r\n * @param array $config 配置\r\n * @return object\r\n */\r\nfunction model($name = '', $config = [])\r\n{\r\n    static $instance = [];\r\n    $guid = $name . 'Model';\r\n    if (!isset($instance[$guid]))\r\n    {\r\n        $class = '\\\\App\\\\Http\\\\Model\\\\' . ucfirst($name);\r\n        if (class_exists($class))\r\n        {\r\n            $model = new $class($config);\r\n            $instance[$guid] = $model;\r\n        }\r\n        else\r\n        {\r\n            throw new Exception('class not exists:' . $class);\r\n        }\r\n    }\r\n\r\n    return $instance[$guid];\r\n}\r\n//判断是否是图片格式，是返回true\r\nfunction imgmatch($url)\r\n{\r\n    $info = pathinfo($url);\r\n    if (isset($info['extension']))\r\n    {\r\n        if (($info['extension'] == 'jpg') || ($info['extension'] == 'jpeg') || ($info['extension'] == 'gif') || ($info['extension'] == 'png'))\r\n        {\r\n            return true;\r\n        }\r\n        else\r\n        {\r\n            return false;\r\n        }\r\n    }\r\n}\r\n\r\n/**\r\n * 检查是否是POST请求\r\n */\r\nfunction isPostRequest()\r\n{\r\n    if($_SERVER['REQUEST_METHOD'] == 'POST') return true;\r\n    if($_POST) return true;\r\n\r\n    return false;\r\n}\r\n\r\n/**\r\n * 是否是GET提交的\r\n */\r\nfunction isGetRequest()\r\n{\r\n    return $_SERVER['REQUEST_METHOD'] == 'GET' ? true : false;\r\n}\r\n\r\n/**\r\n * 获取数据属性\r\n * @param $dataModel 数据模型\r\n * @param $data 数据\r\n * @return array\r\n */\r\nfunction getDataAttr($dataModel,$data = [])\r\n{\r\n    if(empty($dataModel) || empty($data))\r\n    {\r\n        return false;\r\n    }\r\n\r\n    foreach($data as $k=>$v)\r\n    {\r\n        $_method_str=ucfirst(preg_replace_callback('/_([a-zA-Z])/', function ($match) {\r\n            return strtoupper($match[1]);\r\n        }, $k));\r\n\r\n        $_method = 'get' . $_method_str . 'Attr';\r\n        if(method_exists($dataModel, $_method))\r\n        {\r\n            $tmp = $k.'_text';\r\n            $data->$tmp = $dataModel->$_method($data);\r\n        }\r\n    }\r\n\r\n    return $data;\r\n}\r\n//判断是否为数字\r\nfunction checkIsNumber($data)\r\n{\r\n    if($data == '' || $data == null)\r\n    {\r\n        return false;\r\n    }\r\n\r\n    if(preg_match(\"/^\\d*$/\",$data))\r\n    {\r\n        return true;\r\n    }\r\n\r\n    return false;\r\n}\r\n//字符串中所有空白字符过滤掉（空格、全角空格、换行等\r\nfunction myTrim($str)\r\n{\r\n    $search = array(\" \",\"　\",\"\\n\",\"\\r\",\"\\t\");\r\n    $replace = array(\"\",\"\",\"\",\"\",\"\");\r\n    return str_replace($search, $replace, $str);\r\n}\r\n\r\n/**\r\n * 生成支付单编号(两位随机 + 从2000-01-01 00:00:00 到现在的秒数+微秒+会员ID%1000)，该值会传给第三方支付接口\r\n * 长度 =2位 + 10位 + 3位 + 3位  = 18位\r\n * 1000个会员同一微秒提订单，重复机率为1/100\r\n * @return string\r\n */\r\nfunction makeShopPaySn($member_id){\r\n    return mt_rand(10,99)\r\n        . sprintf('%010d',time() - 946656000)\r\n        . sprintf('%03d', (float) microtime() * 1000)\r\n        . sprintf('%03d', (int) $member_id % 1000);\r\n}\r\n\r\n// 公共函数文件\r\nif (! function_exists('curl_request'))\r\n{\r\n    function curl_request($api, $params = array(), $method = 'GET', $headers = array())\r\n    {\r\n        $curl = curl_init();\r\n\r\n        switch (strtoupper($method))\r\n        {\r\n            case 'GET' :\r\n                if (!empty($params))\r\n                {\r\n                    $api .= (strpos($api, '?') ? '&' : '?') . http_build_query($params);\r\n                }\r\n                curl_setopt($curl, CURLOPT_HTTPGET, TRUE);\r\n                break;\r\n            case 'POST' :\r\n                curl_setopt($curl, CURLOPT_POST, TRUE);\r\n                curl_setopt($curl, CURLOPT_POSTFIELDS, $params);\r\n                break;\r\n            case 'PUT' :\r\n                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');\r\n                curl_setopt($curl, CURLOPT_POSTFIELDS, $params);\r\n                break;\r\n            case 'DELETE' :\r\n                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');\r\n                curl_setopt($curl, CURLOPT_POSTFIELDS, $params);\r\n                break;\r\n        }\r\n\r\n        curl_setopt($curl, CURLOPT_URL, $api);\r\n        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);\r\n        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);\r\n        curl_setopt($curl, CURLOPT_HEADER, 0);\r\n\r\n        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);\r\n\r\n        $response = curl_exec($curl);\r\n\r\n        if ($response === FALSE)\r\n        {\r\n            $error = curl_error($curl);\r\n            curl_close($curl);\r\n            return FALSE;\r\n        }\r\n        else\r\n        {\r\n            // 解决windows 服务器 BOM 问题\r\n            $response = trim($response,chr(239).chr(187).chr(191));\r\n            $response = json_decode($response, true);\r\n        }\r\n\r\n        curl_close($curl);\r\n\r\n        return $response;\r\n    }\r\n}\r\nif (! function_exists('httpCurl')) {\r\n//根据微信API获取sessionkey 和 openid\r\n    function httpCurl($url, $params, $method = 'GET', $header = array(), $multi = false)\r\n    {\r\n        date_default_timezone_set('PRC');\r\n        $opts = array(\r\n            CURLOPT_TIMEOUT => 30,\r\n            CURLOPT_RETURNTRANSFER => 1,\r\n            CURLOPT_SSL_VERIFYPEER => false,\r\n            CURLOPT_SSL_VERIFYHOST => false,\r\n            CURLOPT_HTTPHEADER => $header,\r\n            CURLOPT_COOKIESESSION => true,\r\n            CURLOPT_FOLLOWLOCATION => 1,\r\n            CURLOPT_COOKIE\r\n            => session_name() . '=' . session_id(),\r\n        );\r\n        /* 根据请求类型设置特定参数 */\r\n        switch (strtoupper($method)) {\r\n            case 'GET':\r\n                // 链接后拼接参数  &  非？\r\n                $opts[CURLOPT_URL] = $url . '?' . http_build_query($params);\r\n                break;\r\n            case 'POST':                //判断是否传输文件\r\n                $params = $multi ? $params : http_build_query($params);\r\n                $opts[CURLOPT_URL] = $url;\r\n                $opts[CURLOPT_POST] = 1;\r\n                $opts[CURLOPT_POSTFIELDS] = $params;\r\n                break;\r\n            default:\r\n                throw new \\Exception('不支持的请求方式！');\r\n        }\r\n        /* 初始化并执行curl请求 */\r\n        $ch = curl_init();\r\n        curl_setopt_array($ch, $opts);\r\n        $data = curl_exec($ch);\r\n        $error = curl_error($ch);\r\n        curl_close($ch);\r\n        if ($error) throw new \\Exception('请求发生错误：' . $error);\r\n        return $data;\r\n    }\r\n}\r\n\r\n/**\r\n * 生成从开始月份到结束月份的月份数组\r\n * @param int $start 开始时间戳\r\n * @param int $end 结束时间戳\r\n */\r\nfunction monthList($start,$end){\r\n    if(!is_numeric($start)||!is_numeric($end)||($end<=$start)) return '';\r\n    $start=date('Y-m',$start);\r\n    $end=date('Y-m',$end);\r\n    //转为时间戳\r\n    $start=strtotime($start.'-01');\r\n    $end=strtotime($end.'-01');\r\n    $i=0;//http://www.scutephp.com/\r\n    $d=array();\r\n    while($start<=$end){\r\n        //这里累加每个月的的总秒数 计算公式：上一月1号的时间戳秒数减去当前月的时间戳秒数\r\n        $d[$i]=trim(date('Y-m',$start),' ');\r\n        $start+=strtotime('+1 month',$start)-$start;\r\n        $i++;\r\n    }\r\n    return $d;\r\n}\r\n\r\n/**\r\n * 视频上传\r\n * @param $file 视频文件\r\n * @param $folder 文件夹名称\r\n * @param $file_prefix  文件夹名称\r\n * @param bool $max_width\r\n * @return array\r\n */\r\nfunction uploadVideo($file, $folder, $file_prefix, $max_width = false)\r\n{\r\n    // 构建存储的文件夹规则，值如：uploads/images/video/201709/21/\r\n    // 文件夹切割能让查找效率更高。\r\n    $folder_name = \"uploads/$folder/\" . date(\"Y/m/d\", time());\r\n\r\n    // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。\r\n    // 值如：/home/vagrant/Code/changan/public/uploads/video/201709/21/\r\n    $upload_path = public_path() . '/' . $folder_name;\r\n\r\n    // 获取文件的后缀名，因视屏上传时后缀名为空，所以此处确保后缀一直存在\r\n    $extension = strtolower($file->getClientOriginalExtension()) ?: 'mp4';\r\n\r\n    // 拼接文件名，加前缀是为了增加辨析度，前缀可以是相关数据模型的 ID\r\n    // 值如：1_1493521050_7BVc9v.mp4\r\n    $filename = $file_prefix . '_' . time() . '_' . str_random(10) . '.' . $extension;\r\n\r\n    // 将视频移动到我们的目标存储路径中\r\n    $file->move($upload_path, $filename);\r\n\r\n    return [\r\n        'path' => \"/$folder_name/$filename\",\r\n    ];\r\n}\r\n\r\n//获取表所有字段\r\nfunction get_table_columns($table, $field='')\r\n{\r\n    $res = \\Illuminate\\Support\\Facades\\Schema::getColumnListing($table);\r\n    if($field != '')\r\n    {\r\n        //判断字段是否在表里面\r\n        if(in_array($field, $res))\r\n        {\r\n            return true;\r\n        }\r\n        else\r\n        {\r\n            return false;\r\n        }\r\n    }\r\n\r\n    return $res;\r\n}\r\n\r\n//将栏目列表生成数组\r\nfunction get_category($modelname, $parent_id=0, $pad=0)\r\n{\r\n    $arr = array();\r\n\r\n    $temp = \\DB::table($modelname)->where('pid', $parent_id);\r\n    $temp = $temp->orderBy('id', 'asc');\r\n    $temp = $temp->get();\r\n\r\n    $cats = object_to_array($temp);\r\n    if($cats)\r\n    {\r\n        foreach($cats as $row)//循环数组\r\n        {\r\n            $row['deep'] = $pad;\r\n\r\n            if($child = get_category($modelname, $row[\"id\"], $pad+1))//如果子级不为空\r\n            {\r\n                $row['child'] = $child;\r\n            }\r\n\r\n            $arr[] = $row;\r\n        }\r\n\r\n        return $arr;\r\n    }\r\n}\r\n\r\nfunction category_tree($list,$pid=0)\r\n{\r\n    global $temp;\r\n\r\n    if(!empty($list))\r\n    {\r\n        foreach($list as $v)\r\n        {\r\n            $temp[] = array(\"id\"=>$v['id'],\"deep\"=>$v['deep'],\"name\"=>$v['name'],\"pid\"=>$v['pid']);\r\n            //echo $v['id'];\r\n            if(array_key_exists(\"child\",$v))\r\n            {\r\n                category_tree($v['child'],$v['pid']);\r\n            }\r\n        }\r\n    }\r\n\r\n    return $temp;\r\n}\r\n\r\n\r\nfunction array_unique_new($arr){\r\n\r\n    $t = array_map('serialize', $arr);//利用serialize()方法将数组转换为以字符串形式的一维数组\r\n\r\n    $t = array_unique($t);//去掉重复值\r\n\r\n    $new_arr = array_map('unserialize', $t);//然后将刚组建的一维数组转回为php值\r\n\r\n    return $new_arr;\r\n\r\n}\r\n\r\n/**\r\n * 图片上传\r\n * @param $file 图片文件\r\n * @param $folder 文件夹名称\r\n * @param $file_prefix  文件夹名称\r\n * @param bool $max_width\r\n * @return array\r\n */\r\nfunction uploadImage($file, $folder, $file_prefix, $max_width = false)\r\n{\r\n\r\n    // 构建存储的文件夹规则，值如：uploads/images/video/201709/21/\r\n    // 文件夹切割能让查找效率更高。\r\n    $folder_name = \"uploads/$folder/\" . date(\"Y\").'/'.date('m').'/'.date('Ymd');\r\n\r\n    // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。\r\n    // 值如：/home/vagrant/Code/changan/public/uploads/video/201709/21/\r\n    $upload_path = public_path() . '/' . $folder_name;\r\n\r\n    // 获取文件的后缀名，因视屏上传时后缀名为空，所以此处确保后缀一直存在\r\n    $extension = strtolower($file->getClientOriginalExtension()) ?: 'jpg';\r\n\r\n    // 拼接文件名，加前缀是为了增加辨析度，前缀可以是相关数据模型的 ID\r\n    // 值如：1_1493521050_7BVc9v.mp4\r\n    $filename = $file_prefix . '_' . time() . '_' . str_random(10) . '.' . $extension;\r\n\r\n    // 将视频移动到我们的目标存储路径中\r\n    $file->move($upload_path, $filename);\r\n\r\n    return [\r\n        'path' => \"$folder_name/$filename\",\r\n    ];\r\n}\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/Common/function.php	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ app/Common/function.php	(date 1590642314549)
++@@ -212,13 +212,30 @@
++     return $instance[$guid];
++ }
++ //判断是否是图片格式，是返回true
++-function imgmatch($url)
+++function imgmatch($type)
++ {
++-    $info = pathinfo($url);
++-    if (isset($info['extension']))
+++    $info = pathinfo($type);
+++    if (isset($type))
++     {
++-        if (($info['extension'] == 'jpg') || ($info['extension'] == 'jpeg') || ($info['extension'] == 'gif') || ($info['extension'] == 'png'))
+++        if (($type == 'jpg') || ($type == 'jpeg') || ($type == 'gif') || ($type == 'png'))
++         {
+++            return true;
+++        }
+++        else
+++        {
+++            return false;
+++        }
+++    }
+++}
+++//判断是否是视频格式，是返回true
+++//'avi', 'mov', 'mp4', 'm4v', 'mpeg', 'mpg', 'wmv', 'ogv'
+++function videomatch($type)
+++{
+++//    $info = pathinfo($url);
+++    if (isset($type))
+++    {
+++        if (($type == 'avi') || ($type == 'mov') || ($type == 'm4v') || ($type == 'mpeg') || ($type == 'mpg') || ($type == 'wmv') || ($type == 'ogv'))
+++        {
++             return true;
++         }
++         else
++@@ -566,7 +583,6 @@
++     // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
++     // 值如：/home/vagrant/Code/changan/public/uploads/video/201709/21/
++     $upload_path = public_path() . '/' . $folder_name;
++-
++     // 获取文件的后缀名，因视屏上传时后缀名为空，所以此处确保后缀一直存在
++     $extension = strtolower($file->getClientOriginalExtension()) ?: 'jpg';
++ 
++Index: .idea/lianyi.iml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"WEB_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/tests\" isTestSource=\"true\" packagePrefix=\"Tests\\\" />\r\n      <sourceFolder url=\"file://$MODULE_DIR$/app\" isTestSource=\"false\" packagePrefix=\"App\\\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/bacon/bacon-qr-code\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/beyondcode/laravel-dump-server\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/composer\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/doctrine/inflector\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/doctrine/instantiator\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/doctrine/lexer\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/dragonmantank/cron-expression\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/egulias/email-validator\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/erusev/parsedown\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/fideloper/proxy\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/filp/whoops\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/fzaninotto/faker\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/jakub-onderka/php-console-color\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/jakub-onderka/php-console-highlighter\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/laravel/framework\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/laravel/tinker\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/league/flysystem\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/mockery/mockery\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/monolog/monolog\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/myclabs/deep-copy\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/nesbot/carbon\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/nikic/php-parser\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/nunomaduro/collision\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/opis/closure\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/paragonie/random_compat\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/peinhu/aetherupload-laravel\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phar-io/manifest\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phar-io/version\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpoption/phpoption\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpspec/prophecy\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpunit/php-code-coverage\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpunit/php-file-iterator\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpunit/php-text-template\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpunit/php-timer\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpunit/php-token-stream\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/phpunit/phpunit\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/psr/container\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/psr/log\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/psr/simple-cache\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/psy/psysh\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/ramsey/uuid\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/comparator\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/diff\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/environment\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/exporter\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/global-state\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/object-enumerator\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/object-reflector\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/recursion-context\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/resource-operations\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/sebastian/version\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/simplesoftwareio/simple-qrcode\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/swiftmailer/swiftmailer\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/console\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/css-selector\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/debug\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/error-handler\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/event-dispatcher\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/event-dispatcher-contracts\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/finder\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/http-foundation\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/http-kernel\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/mime\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/polyfill-ctype\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/polyfill-iconv\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/polyfill-intl-idn\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/polyfill-php72\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/polyfill-php73\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/process\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/routing\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/service-contracts\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/translation\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/translation-contracts\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/symfony/var-dumper\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/theseer/tokenizer\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/tijsverkoyen/css-to-inline-styles\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/vlucas/phpdotenv\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/vendor/webmozart/assert\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- .idea/lianyi.iml	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ .idea/lianyi.iml	(date 1590033466304)
++@@ -2,8 +2,9 @@
++ <module type="WEB_MODULE" version="4">
++   <component name="NewModuleRootManager">
++     <content url="file://$MODULE_DIR$">
++-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
+++      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
++       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
+++      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
++       <excludeFolder url="file://$MODULE_DIR$/vendor/bacon/bacon-qr-code" />
++       <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-dump-server" />
++       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
++Index: app/Http/Middleware/VerifyCsrfToken.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?php\r\n\r\nnamespace App\\Http\\Middleware;\r\n\r\nuse Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken as Middleware;\r\n\r\nclass VerifyCsrfToken extends Middleware\r\n{\r\n    /**\r\n     * Indicates whether the XSRF-TOKEN cookie should be set on the response.\r\n     *\r\n     * @var bool\r\n     */\r\n    protected $addHttpCookie = true;\r\n\r\n    /**\r\n     * The URIs that should be excluded from CSRF verification.\r\n     *\r\n     * @var array\r\n     */\r\n    protected $except = [\r\n        //\r\n    ];\r\n}\r\n
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/Http/Middleware/VerifyCsrfToken.php	(revision 15f96b0ef03bac7b9fe78e760f8f08c5a85dcffb)
+++++ app/Http/Middleware/VerifyCsrfToken.php	(date 1590722232485)
++@@ -20,5 +20,8 @@
++      */
++     protected $except = [
++         //
+++        'http://www.lianyi.com/enterprise/upload',
+++        'http://www.lianyi.com/enterprise/upload/upload_video',
+++        'http://www.lianyi.com/enterprise/upload/upload_file',
++     ];
++ }
++Index: app/Http/Controllers/Enterprise/UploadController.php
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- app/Http/Controllers/Enterprise/UploadController.php	(date 1590737870669)
+++++ app/Http/Controllers/Enterprise/UploadController.php	(date 1590737870669)
++@@ -0,0 +1,162 @@
+++<?php
+++namespace app\Http\Controllers\Enterprise;
+++use App\Http\Controllers\Enterprise\CommonController;
+++use Illuminate\Http\Request;
+++
+++class UploadController extends CommonController
+++{
+++    public function __construct()
+++    {
+++        parent::__construct();
+++    }
+++    public function upload_img(Request $request)
+++    {
+++        $files = $request->file('file');
+++        $extension = $files->extension();
+++        if (!imgmatch($extension))
+++        {
+++            throw new \Exception("文件不符合验证要求");
+++        }
+++        $mime = $files->getClientMimeType();
+++        if ((($mime == "image/gif")    || ($mime == "image/jpeg")    || ($mime == "image/pjpeg")    || ($mime == "image/x-png")    || ($mime == "image/png")) ) {
+++            $img_arr = uploadImage($files,'enterprise/editor/images','images');
+++            if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] != "off") {
+++                $protocol = "https://";
+++            } else {
+++                $protocol = "http://";
+++            }
+++            $response = new \StdClass;
+++            $response->link = $protocol.$_SERVER["HTTP_HOST"].'/'.$img_arr['path'];
+++            echo stripslashes(json_encode($response));
+++        }
+++    }
+++    public function upload_video()
+++    {
+++        try {
+++
+++            $fieldname = "file";
+++            $fileRoute = "uploads/enterprise/editor/video/" . date("Y").'/'.date('m').'/'.date('Ymd');
+++
+++            // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
+++            // 值如：/home/vagrant/Code/changan/public/uploads/video/201709/21/
+++            $upload_path = public_path() . '/' . $fileRoute;
+++            // Get filename.
+++            $filename = explode(".", $_FILES[$fieldname]["name"]);
+++
+++            // Validate uploaded files.
+++            // Do not use $_FILES["file"]["type"] as it can be easily forged.
+++            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+++
+++            // Get temp file name.
+++            $tmpName = $_FILES[$fieldname]["tmp_name"];
+++
+++            // Get mime type. You must include fileinfo PHP extension.
+++            $mimeType = finfo_file($finfo, $tmpName);
+++
+++            // Get extension.
+++            $extension = end($filename);
+++
+++            // Allowed extensions.
+++            $allowedExts = array("mp4", "webm", "ogg");
+++
+++            // Allowed mime types.
+++            $allowedMimeTypes = array("video/mp4", "video/webm", "video/ogg");
+++
+++            // Validate file.
+++            if (!in_array(strtolower($mimeType), $allowedMimeTypes) || !in_array(strtolower($extension), $allowedExts)) {
+++                throw new \Exception("文件不符合验证要求");
+++            }
+++            if (!is_dir($upload_path)){
+++                mkdir($upload_path,'0755',true);
+++            }
+++            // Generate new random name.
+++            $name = sha1(microtime()) . "." . $extension;
+++            $fullNamePath = $upload_path .'/'. $name;
+++            // Check server protocol and load resources accordingly.
+++            if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] != "off") {
+++                $protocol = "https://";
+++            } else {
+++                $protocol = "http://";
+++            }
+++            // Save file in the uploads folder.
+++            move_uploaded_file($tmpName, $fullNamePath);
+++
+++            // Generate response.
+++            $response = new \StdClass;
+++            $response->link = $protocol.$_SERVER["HTTP_HOST"].'/'.$fileRoute .'/'. $name;
+++
+++            // Send response.
+++            echo stripslashes(json_encode($response));
+++
+++        } catch (Exception $e) {
+++            // Send error response.
+++            echo $e->getMessage();
+++            http_response_code(404);
+++        }
+++    }
+++    public function upload_file()
+++    {
+++        try {
+++            // File Route.
+++            $fileRoute = "uploads/enterprise/editor/file/" . date("Y").'/'.date('m').'/'.date('Ymd');
+++
+++            $fieldname = "file";
+++            $upload_path = public_path() . '/' . $fileRoute;
+++            // Get filename.
+++            $filename = explode(".", $_FILES[$fieldname]["name"]);
+++
+++            // Validate uploaded files.
+++            // Do not use $_FILES["file"]["type"] as it can be easily forged.
+++            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+++
+++            // Get temp file name.
+++            $tmpName = $_FILES[$fieldname]["tmp_name"];
+++            // Get mime type. You must include fileinfo PHP extension.
+++            $mimeType = finfo_file($finfo, $tmpName);
+++
+++            // Get extension.
+++            $extension = end($filename);
+++
+++            // Allowed extensions.
+++            $allowedExts = array("txt", "pdf", "doc","json","html");
+++
+++            // Allowed mime types.
+++            $allowedMimeTypes = array("text/plain", "application/msword", "application/x-pdf", "application/pdf", "application/json","text/html");
+++
+++            // Validate file.
+++            if (!in_array(strtolower($mimeType), $allowedMimeTypes) || !in_array(strtolower($extension), $allowedExts)) {
+++                throw new \Exception("文件不符合验证条件。");
+++            }
+++
+++            if (!is_dir($upload_path)){
+++                mkdir($upload_path,'0755',true);
+++            }
+++
+++            // Generate new random name.
+++            $name = sha1(microtime()) . "." . $extension;
+++            $fullNamePath = $upload_path . '/' . $name;
+++
+++            // Check server protocol and load resources accordingly.
+++            if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] != "off") {
+++                $protocol = "https://";
+++            } else {
+++                $protocol = "http://";
+++            }
+++
+++            // Save file in the uploads folder.
+++            move_uploaded_file($tmpName, $fullNamePath);
+++
+++            // Generate response.
+++            $response = new \StdClass;
+++            $response->link = $protocol.$_SERVER["HTTP_HOST"].'/'.$fileRoute .'/'. $name;
+++
+++            // Send response.
+++            echo stripslashes(json_encode($response));
+++
+++        } catch (Exception $e) {
+++            // Send error response.
+++            echo $e->getMessage();
+++            http_response_code(404);
+++        }
+++    }
+++}
++diff --git resources/views/enterprise/culture/add.blade.php resources/views/enterprise/culture/add1.blade.php
++rename from resources/views/enterprise/culture/add.blade.php
++rename to resources/views/enterprise/culture/add1.blade.php
+Index: public/uploads/enterprise/editor/file/2020/05/20200529/96ab5d253f30573ab22d8c2d187bedeecd20c6ca.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/uploads/enterprise/editor/file/2020/05/20200529/96ab5d253f30573ab22d8c2d187bedeecd20c6ca.txt	(date 1590738908279)
++++ public/uploads/enterprise/editor/file/2020/05/20200529/96ab5d253f30573ab22d8c2d187bedeecd20c6ca.txt	(date 1590738908279)
+@@ -0,0 +1,92 @@
++�������˺�
++�¸߶���Ϣ�Ƽ�2017
++
++�����Ʒ�����
++39.106.7.85
++root
++Xingaodu197388
++���ݿ��˺� root
++ ����  xingaodu2017
++
++ϵͳ������ ������ 39.106.7.85
++d-2ze78t84wkep6lrq55f5
++Hui197388
++
++�������� ���ں�
++yuhongpengjk@163.com
++hongpeng2018
++AppID  wx4bf5623139846856
++AppSecret  a1f3453390359e23d50dc2f9f15ef06f
++�̻�ƽ̨
++�̻��˺�: 1518634221
++API��Կ : hongpeng2018hongpeng2018hongpeng
++��������: hongpeng2018+
++����ƽ̨
++hongpengjiankang@126.com
++hongpeng2018
++APP Ӧ��
++AppID��wxb3cd934fc8f556aa
++AppSecret: 9de291f40694d56479617eb09769983e
++
++�¸߶ȹ��ں�
++shaokang_chen@163.com
++xingaodu2018
++AppID wx6473f529308371d8
++AppSecret 886065c26cc396c8fc2dfc25395d3b80
++�̻�ƽ̨ 
++��������  xingaodu+123
++API֧����Կ   xingaodu123xingaodu123xingaodu12
++С����
++����  xgdxcx@163.com  ���� xingaodu2018
++
++�ǻ���ҵС����
++zhwyxiaochengxu@163.com
++���� wushengtang2018
++appid  wx151b4f1f4cbb0078
++appsecret  b32faaaea742813597fe4c87bc4284d8
++
++ˮ��������
++���ں�   xgd_srs@163.com   ����   xingaodu2018
++
++���￪ѧ��С����
++appid  wx816c3881223835a6
++appsecret  20ac836847e967e7e9eeb2559b29b7d4
++
++�ٳ�����󽡿� ���ں�
++�˺� mnjkkeji@163.com 
++���� mnjkkeji2019
++
++��ԭ���
++APPID  wx2fe301f33bfae08e
++appsecret  4ca1882c6b70ae987dc8b6d3a83fd147
++
++http://webworkplace.wfweizhong.com/Home/Login.html
++47.93.197.154 
++
++�û��� root 
++
++���� 1564335Astarry   
++�˿ڣ� 22
++Ŀ¼��/alidata/www/webworkplace/
++���ݿ�: others  ����:astarry
++
++https://cp.hichina.com/ 
++qxw1635780211
++s3f6s3T5
++http://www.lifeinsightusa.com/adminback/
++admin
++lxh2015
++
++qxw1192460050
++s3e6m5h6
++aqualifechina.com
++
++qxw1143320251
++e3k8k5w8
++http://www.c300.com.cn/manage/
++admin
++lxh2015
++
++���緢Ʊ�������
++111111
++
+Index: public/uploads/enterprise/editor/file/2020/05/20200529/dec67327b962ef0b7cec1daf974c662a6e7b5ada.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- public/uploads/enterprise/editor/file/2020/05/20200529/dec67327b962ef0b7cec1daf974c662a6e7b5ada.txt	(date 1590737409781)
++++ public/uploads/enterprise/editor/file/2020/05/20200529/dec67327b962ef0b7cec1daf974c662a6e7b5ada.txt	(date 1590737409781)
+@@ -0,0 +1,92 @@
++�������˺�
++�¸߶���Ϣ�Ƽ�2017
++
++�����Ʒ�����
++39.106.7.85
++root
++Xingaodu197388
++���ݿ��˺� root
++ ����  xingaodu2017
++
++ϵͳ������ ������ 39.106.7.85
++d-2ze78t84wkep6lrq55f5
++Hui197388
++
++�������� ���ں�
++yuhongpengjk@163.com
++hongpeng2018
++AppID  wx4bf5623139846856
++AppSecret  a1f3453390359e23d50dc2f9f15ef06f
++�̻�ƽ̨
++�̻��˺�: 1518634221
++API��Կ : hongpeng2018hongpeng2018hongpeng
++��������: hongpeng2018+
++����ƽ̨
++hongpengjiankang@126.com
++hongpeng2018
++APP Ӧ��
++AppID��wxb3cd934fc8f556aa
++AppSecret: 9de291f40694d56479617eb09769983e
++
++�¸߶ȹ��ں�
++shaokang_chen@163.com
++xingaodu2018
++AppID wx6473f529308371d8
++AppSecret 886065c26cc396c8fc2dfc25395d3b80
++�̻�ƽ̨ 
++��������  xingaodu+123
++API֧����Կ   xingaodu123xingaodu123xingaodu12
++С����
++����  xgdxcx@163.com  ���� xingaodu2018
++
++�ǻ���ҵС����
++zhwyxiaochengxu@163.com
++���� wushengtang2018
++appid  wx151b4f1f4cbb0078
++appsecret  b32faaaea742813597fe4c87bc4284d8
++
++ˮ��������
++���ں�   xgd_srs@163.com   ����   xingaodu2018
++
++���￪ѧ��С����
++appid  wx816c3881223835a6
++appsecret  20ac836847e967e7e9eeb2559b29b7d4
++
++�ٳ�����󽡿� ���ں�
++�˺� mnjkkeji@163.com 
++���� mnjkkeji2019
++
++��ԭ���
++APPID  wx2fe301f33bfae08e
++appsecret  4ca1882c6b70ae987dc8b6d3a83fd147
++
++http://webworkplace.wfweizhong.com/Home/Login.html
++47.93.197.154 
++
++�û��� root 
++
++���� 1564335Astarry   
++�˿ڣ� 22
++Ŀ¼��/alidata/www/webworkplace/
++���ݿ�: others  ����:astarry
++
++https://cp.hichina.com/ 
++qxw1635780211
++s3f6s3T5
++http://www.lifeinsightusa.com/adminback/
++admin
++lxh2015
++
++qxw1192460050
++s3e6m5h6
++aqualifechina.com
++
++qxw1143320251
++e3k8k5w8
++http://www.c300.com.cn/manage/
++admin
++lxh2015
++
++���緢Ʊ�������
++111111
++
