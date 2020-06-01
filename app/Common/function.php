@@ -215,9 +215,9 @@ function model($name = '', $config = [])
 function imgmatch($url)
 {
     $info = pathinfo($url);
-    if (isset($info['extension']))
+    if (isset($info['filename']))
     {
-        if (($info['extension'] == 'jpg') || ($info['extension'] == 'jpeg') || ($info['extension'] == 'gif') || ($info['extension'] == 'png'))
+        if (($info['filename'] == 'jpg') || ($info['filename'] == 'jpeg') || ($info['filename'] == 'gif') || ($info['filename'] == 'png'))
         {
             return true;
         }

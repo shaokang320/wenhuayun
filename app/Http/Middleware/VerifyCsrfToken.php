@@ -23,5 +23,8 @@ class VerifyCsrfToken extends Middleware
         'https://wenhua.newheightchina.com/enterprise/upload',
         'https://wenhua.newheightchina.com/enterprise/upload/upload_video',
         'https://wenhua.newheightchina.com/enterprise/upload/upload_file',
+//        'http://www.lianyi.com/enterprise/upload/upload_file',
+//        'http://www.lianyi.com/enterprise/upload/upload_video',
+//        'http://www.lianyi.com/enterprise/upload',
     ];
 }
