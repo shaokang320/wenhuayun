@@ -209,10 +209,7 @@ class Culture extends BaseModel
     {
         return $this->getDb()->where($where)->count();
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
     /**
      * 打印sql
      */
