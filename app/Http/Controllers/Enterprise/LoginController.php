@@ -64,6 +64,7 @@ class LoginController extends BaseController
         error_jump('账号或密码错误', route('enterprise_login'));
     }
 
+
     //退出登录
     public function logout()
     {

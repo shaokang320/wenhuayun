@@ -57,7 +57,6 @@ Route::group(['prefix' => 'enterprise', 'namespace' => 'Enterprise', 'middleware
     Route::get('/login', 'LoginController@login')->name('enterprise_login');
     Route::post('/dologin', 'LoginController@dologin')->name('enterprise_dologin');
     Route::get('/logout', 'LoginController@logout')->name('enterprise_logout');
-    Route::get('/recoverpwd', 'LoginController@recoverpwd')->name('enterprise_recoverpwd');
     //页面跳转
     Route::get('/jump', 'LoginController@jump')->name('admin_jump');
 

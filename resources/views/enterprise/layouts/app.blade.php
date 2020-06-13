@@ -69,13 +69,13 @@
                 <li class="item">
                     <a href="<?php echo route('enterprise');?>"><i class="fa fa-home"></i> <span class="nav-label">首页</span></a>
                 </li>
-                <li class="item">
-                    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">产品管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="">产品列表</a></li>
-                        <li><a href="">产品添加</a></li>
-                    </ul>
-                </li>
+{{--                <li class="item">--}}
+{{--                    <a href="#"><i class="fa fa-users"></i> <span class="nav-label">产品管理</span> <span class="fa arrow"></span></a>--}}
+{{--                    <ul class="nav nav-second-level">--}}
+{{--                        <li class="active"><a href="">产品列表</a></li>--}}
+{{--                        <li><a href="">产品添加</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
                 <li class="item">
                     <a href="#"><i class="fa fa-users"></i> <span class="nav-label">文化管理</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -125,12 +125,12 @@
                         <div class="tab-content">
                             <div class="tab-pane active">
                                 <div class="sidebar-message">
-                                    <a href="">
+                                    <a href="{{route('enterprise_editPwd')}}">
                                         <i class="fa fa-sign-out"></i> 密码修改
                                     </a>
                                 </div>
                                 <div class="sidebar-message">
-                                    <a href="">
+                                    <a href="{{route('enterprise_logout')}}">
                                         <i class="fa fa-sign-out"></i> Log out
                                     </a>
                                 </div>

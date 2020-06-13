@@ -7,7 +7,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <form id="addarc" method="post" action="{{route('admin_editPwd')}}" role="form" enctype="multipart/form-data" class="form-horizontal">{{ csrf_field() }}
+                    <form id="addarc" method="post" action="{{route('enterprise_editPwd')}}" role="form" enctype="multipart/form-data" class="form-horizontal">{{ csrf_field() }}
                         <div class="form-group"><label class="col-sm-2 control-label required">原始密码</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control required" name="old_password">
