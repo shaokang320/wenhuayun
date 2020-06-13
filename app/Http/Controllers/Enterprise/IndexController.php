@@ -37,7 +37,7 @@ class IndexController extends CommonController
             {
                 if (DB::table('enterprise')->where(array('id'=>$this->enterprise_info['id'],'password' => md5($_POST['old_password'])))->update(['password'=>md5($_POST['new2_password'])]))
                 {
-                    error_jump('密码修改成功,请重新登录',route('enterprise_logout'));
+                    success_jump('密码修改成功,请重新登录',route('enterprise_logout'));
                 }
                 error_jump('密码修改失败');
             }
