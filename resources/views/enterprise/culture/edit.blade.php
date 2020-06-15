@@ -32,7 +32,7 @@
 <script type="text/javascript"
         src="<?php echo route('home'); ?>/froala_editor/js/codemirror.min.js"></script>
 <script type="text/javascript"
-        src="<?php echo route('home'); ?>/froala_editor/js/xml/xml.min.js"></script>
+        src="<?php echo route('home'); ?>/froala_editor/js/xml.min.js"></script>
 
 <script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/froala_editor.min.js"></script>
 <script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/align.min.js"></script>
