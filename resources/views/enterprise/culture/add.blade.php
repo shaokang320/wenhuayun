@@ -1,5 +1,5 @@
 <script src="<?php echo route('home'); ?>/js/jquery-3.3.1.min.js"></script><!--需要引入jquery-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/froala_editor.css">
 <link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/froala_style.css">
 <link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/code_view.css">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/help.css">
 <link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/third_party/spell_checker.css">
 <link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/plugins/special_characters.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+<link rel="stylesheet" href="<?php echo route('home'); ?>/froala_editor/css/codemirror.min.css">
 <style>
     .fr-wrapper:nth-child(2){
         display: none;
@@ -30,9 +30,9 @@
 </style>
 
 <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+        src="<?php echo route('home'); ?>/froala_editor/js/codemirror.min.js"></script>
 <script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+        src="<?php echo route('home'); ?>/froala_editor/js/xml/xml.min.js"></script>
 
 <script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/froala_editor.min.js"></script>
 <script type="text/javascript" src="<?php echo route('home'); ?>/froala_editor/js/plugins/align.min.js"></script>
